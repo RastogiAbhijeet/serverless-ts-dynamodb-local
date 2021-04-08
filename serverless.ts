@@ -44,6 +44,7 @@ const serverlessConfiguration: AWS = {
       PATIENT_PROFILES_TABLE: "${self:custom.patientProfilesTable}",
       PATIENT_QUESTION_TABLE: "${self:custom.patientQuestionsTable}",
       EXCEPTION_CARE_TABLE: "${self:custom.exceptionalCareTable}",
+      SERVERLESS_ENV: "${opt:stage, 'local'}",
     },
     lambdaHashingVersion: "20201221",
     iam: {
