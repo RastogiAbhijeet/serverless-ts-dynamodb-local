@@ -6,7 +6,7 @@ export default {
     {
       http: {
         method: "get",
-        path: "hello",
+        path: "lessSize",
       },
     },
   ],
@@ -17,4 +17,6 @@ export default {
   role: {
     "Fn::GetAtt": ["LambdaExecutionRole", "Arn"],
   },
+  timeout: 30,
+  memory: 256,
 };
