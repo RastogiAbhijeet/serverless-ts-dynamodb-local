@@ -4,6 +4,8 @@ import {
   HealthAppCognitoUserPoolClient,
 } from "./serverless/resources/cognito";
 
+import envVars from "./serverless/environment";
+
 import { LambdaExecutionRole } from "serverless/roles/lambdaExecutionRole";
 
 import hello from "@functions/hello";
@@ -16,12 +18,6 @@ const serverlessConfiguration: AWS = {
     webpack: {
       webpackConfig: "./webpack.config.js",
       includeModules: true,
-    },
-    dynamodb: {
-      start: {
-        migrate: true,
-      },
-      stages: ["${self:provider.stage}"],
     },
     cognitoUserPoolClient: "${self:provider.stage}-health-app-pool-client",
     cognitoUserPool: "${self:provider.stage}-health-app-user-pool",
@@ -40,24 +36,16 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
-    environment: {
-      AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
-      SERVERLESS_ENV: "${opt:stage, 'local'}",
-    },
+    environment: envVars,
     lambdaHashingVersion: "20201221",
-    deploymentBucket: {
-      tags: {
-        Environment: "${opt:stage, 'local'}",
-      },
-    },
   },
   package: {
     individually: true,
-    exclude: [
-      "terraform/**",
-      "serverless/**",
-      "package.json",
-      "package-lock.json",
+    patterns: [
+      "!terraform/**",
+      "!serverless/**",
+      "!package.json",
+      "!package-lock.json",
     ],
   },
   // import the function via paths

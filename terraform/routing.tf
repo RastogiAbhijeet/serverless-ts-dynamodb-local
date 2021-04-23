@@ -41,12 +41,6 @@ resource "aws_route_table_association" "private_2" {
   route_table_id = aws_route_table.private.id
 }
 
-# resource "aws_route" "private_route_1" {
-#   route_table_id         = aws_route_table.private.id
-#   destination_cidr_block = aws_vpc.main.cidr_block
-#   target                 = "local"
-# }
-
 resource "aws_route" "private_route_2" {
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"

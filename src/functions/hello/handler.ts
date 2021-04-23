@@ -5,13 +5,13 @@ import * as pg from "pg";
 import { APIGatewayProxyEvent } from "aws-lambda";
 
 const hello = async (event: APIGatewayProxyEvent) => {
+  console.log("IS OFFLINE: ", process.env.IS_OFFLINE);
   const pool = new pg.Pool({
-    user: "postgres",
-    host:
-      "terraform-20210418061131407100000001.cmgrpjifhcms.us-east-1.rds.amazonaws.com",
-    database: "postgres",
-    password: "postgres1234",
-    port: 5432,
+    user: process.env.PG_USER,
+    host: process.env.PG_HOST,
+    database: process.env.PG_DB_NAME,
+    password: process.env.PG_PASSWORD,
+    port: parseInt(process.env.PG_PORT),
   });
 
   try {
@@ -26,7 +26,7 @@ const hello = async (event: APIGatewayProxyEvent) => {
   } catch (err) {
     console.error("Problem Creating Table", err.message);
   }
-  
+
   try {
     await pool.query(`insert into users values ("test", "Test", "Testdf",23);`);
   } catch (err) {

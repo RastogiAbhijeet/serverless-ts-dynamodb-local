@@ -110,6 +110,19 @@ export const LambdaExecutionRole = {
             ],
           },
         },
+        {
+          PolicyName: "AWSSecretsManagerAccess",
+          PolicyDocument: {
+            Version: "2012-10-17",
+            Statement: [
+              {
+                Effect: "Allow",
+                Action: "secretsmanager:GetSecretValue",
+                Resource: "*",
+              },
+            ],
+          },
+        },
       ],
     },
   },
