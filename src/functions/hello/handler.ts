@@ -3,8 +3,11 @@ import { formatJSONResponse } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
 import * as pg from "pg";
 import { APIGatewayProxyEvent } from "aws-lambda";
+import { getAppConfig } from "@config/appConfig";
 
 const hello = async (event: APIGatewayProxyEvent) => {
+  const appConfig = getAppConfig();
+  console.log("APP CONFIG", appConfig);
   console.log("IS OFFLINE: ", process.env.IS_OFFLINE);
   const pool = new pg.Pool({
     user: process.env.PG_USER,
