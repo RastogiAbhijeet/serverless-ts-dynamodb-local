@@ -11,13 +11,7 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
-# resource "aws_route" "public_route_1" {
-#   route_table_id         = aws_route_table.public.id
-#   destination_cidr_block = aws_vpc.main.cidr_block
-#   local_gateway_id = data.aws_ec2_local_gateway.selected.id
-# }
-
-resource "aws_route" "public_route_2" {
+resource "aws_route" "public_route" {
   route_table_id         = aws_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.gw.id
