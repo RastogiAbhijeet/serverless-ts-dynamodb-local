@@ -7,11 +7,15 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "health-app-tf-infra"
+    bucket = "pxboost-app-tf-infra"
     key    = "main"
     region = "us-east-1"
   }
 }
 provider "aws" {
   region = "us-east-1"
+}
+
+provider "random" {
+
 }

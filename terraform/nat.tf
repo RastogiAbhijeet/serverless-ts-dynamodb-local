@@ -1,10 +1,9 @@
 resource "aws_eip" "nat" {
   vpc = true
   tags = {
-    Name            = "pxboost-eip-${var.env}-${random.tlrs.hex}"
-    Environment     = var.env
-    ApplicationID   = "pxboost-${random.tlrs.hex}"
-    ApplicationName = "pxboost"
+    Name            = "${var.app_name}-eip-${random_id.tlrs.hex}"
+    ApplicationID   = "${var.app_name}-${random_id.tlrs.hex}"
+    ApplicationName = var.app_name
   }
 }
 
@@ -17,9 +16,8 @@ resource "aws_nat_gateway" "public" {
   ]
 
   tags = {
-    Name            = "pxboost-nat-${var.env}-${random.tlrs.hex}"
-    Environment     = var.env
-    ApplicationID   = "pxboost-${random.tlrs.hex}"
-    ApplicationName = "pxboost"
+    Name            = "${var.app_name}-nat-${random_id.tlrs.hex}"
+    ApplicationID   = "${var.app_name}-${random_id.tlrs.hex}"
+    ApplicationName = var.app_name
   }
 }

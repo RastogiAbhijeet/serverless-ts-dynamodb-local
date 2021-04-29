@@ -1,11 +1,11 @@
 resource "aws_security_group" "lambda" {
-  name        = "pxboost-sg-lambda-${var.env}-${tlrs}"
+  name        = "pxboost-sg-lambda-${var.env}-${var.tlrs}"
   description = "Allow lambda to send request RDS"
   vpc_id      = var.vpc_id
 
 
   tags = {
-    Name           = "pxboost-sg-lambda-${var.env}.${tlrs}"
+    Name           = "pxboost-sg-lambda-${var.env}.${var.tlrs}"
     Environment    = var.env
     ApplicationID = "pxboost-${var.tlrs}"
     ApplicationName = "pxboost"

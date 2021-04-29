@@ -12,15 +12,15 @@ import hello from "@functions/hello";
 import lessSize from "@functions/lessSize";
 
 const serverlessConfiguration: AWS = {
-  service: "acme-typescript",
+  service: "pxboost-envs-services",
   frameworkVersion: "2",
   custom: {
     webpack: {
       webpackConfig: "./webpack.config.js",
       includeModules: true,
     },
-    cognitoUserPoolClient: "${self:provider.stage}-health-app-pool-client",
-    cognitoUserPool: "${self:provider.stage}-health-app-user-pool",
+    cognitoUserPoolClient: "${self:provider.stage}-mbr-pool-client",
+    cognitoUserPool: "${self:provider.stage}-mbr-user-pool",
   },
   plugins: [
     "serverless-webpack",
@@ -38,6 +38,13 @@ const serverlessConfiguration: AWS = {
     },
     environment: envVars,
     lambdaHashingVersion: "20201221",
+    vpc: {
+      securityGroupIds: ["${opt:security_group_id}"],
+      subnetIds: ["subnet-084a33b3305f87989", "subnet-0541ab01cea90014a"],
+    },
+    role: {
+      "Fn::GetAtt": ["LambdaExecutionRole", "Arn"],
+    },
   },
   package: {
     individually: true,

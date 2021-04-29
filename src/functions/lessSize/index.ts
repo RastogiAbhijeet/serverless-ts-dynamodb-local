@@ -10,13 +10,6 @@ export default {
       },
     },
   ],
-  vpc: {
-    securityGroupIds: ["sg-059f6a94d0073b9d1"],
-    subnetIds: ["subnet-04a47aa1b3dea7dcc", "subnet-0ef2290d8704ba480"],
-  },
-  role: {
-    "Fn::GetAtt": ["LambdaExecutionRole", "Arn"],
-  },
   timeout: 30,
   memory: 256,
 };

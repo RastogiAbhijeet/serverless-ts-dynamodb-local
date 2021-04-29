@@ -1,15 +1,36 @@
 variable "zone" {
-  default = "us-east-1a"
+  type = string
 }
 
-variable "rds_dev_username" {
-  default = "postgres"
+variable "dev_pg_creds" {
+  type = object({
+    user     = string
+    password = string
+    port     = number
+  })
 }
 
-variable "rds_dev_password" {
-  default = "postgres1234"
+variable "staging_pg_creds" {
+  type = object({
+    user     = string
+    password = string
+    port     = number
+  })
 }
 
-variable "postgres_port" {
-    default = 5432
+variable "prod_pg_creds" {
+  type = object({
+    user     = string
+    password = string
+    port     = number
+  })
+}
+
+variable "ec_port" {
+  type = number
+}
+
+variable "app_name" {
+  type    = string
+  default = "pxboost"
 }

@@ -27,7 +27,7 @@ resource "aws_instance" "bastian" {
   key_name = "pxboost-bastian-${var.env}"
 
   tags = {
-    Name            = "pxboost-bastian-${var.env}-${var.tlrs}"
+    Name            = "pxboost-bastian-${var.env}"
     Environment     = var.env
     ApplicationID   = "pxboost-${var.tlrs}"
     ApplicationName = "pxboost"
@@ -35,9 +35,9 @@ resource "aws_instance" "bastian" {
 }
 
 resource "aws_security_group" "bastian" {
-  name        = "bastian_ec2"
+  name        = "bastian_ec2-${var.env}-${var.tlrs}"
   description = "Security Group for setting up bastian"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.vpc_id
 
 
   tags = {
@@ -57,6 +57,11 @@ resource "aws_security_group_rule" "ingress_bastian_ssh" {
   protocol          = "TCP"
   security_group_id = aws_security_group.bastian.id
   cidr_blocks       = ["0.0.0.0/0"]
+}
+
+resource "aws_eip" "bastian_ip" {
+  instance = aws_instance.bastian.id
+  vpc = true
 }
 
 resource "aws_network_interface" "bastian_ani" {

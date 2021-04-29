@@ -2,7 +2,7 @@ export const LambdaExecutionRole = {
   LambdaExecutionRole: {
     Type: "AWS::IAM::Role",
     Properties: {
-      RoleName: "${self:provider.stage}healthapprole",
+      RoleName: "${self:provider.stage}healthapprole-mbr",
       AssumeRolePolicyDocument: {
         Version: "2012-10-17",
         Statement: [

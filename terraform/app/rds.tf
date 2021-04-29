@@ -11,14 +11,17 @@ resource "aws_db_instance" "rds" {
   availability_zone      = var.zone
   engine_version         = data.aws_rds_engine_version.main.version
   instance_class         = var.rds_config.instance_class
+  name                   = "postgres"
+  identifier             = "pxboost-db-${var.env}"
   username               = var.rds_config.username
   password               = var.rds_config.password
   port                   = var.rds_config.port
   vpc_security_group_ids = [aws_security_group.rds.id]
   db_subnet_group_name   = aws_db_subnet_group.rds.name
+  skip_final_snapshot    = true
 
   tags = {
-    Name            = "pxboost-db-${var.env}-${var.tlrs}"
+    Name            = "pxboost-db-${var.env}"
     Environment     = var.env
     ApplicationID   = "pxboost-${var.tlrs}"
     ApplicationName = "pxboost"
@@ -31,12 +34,12 @@ resource "aws_db_subnet_group" "rds" {
 }
 
 resource "aws_security_group" "rds" {
-  name        = "pxboost-sg-rds-${var.env}-${tlrs}"
+  name        = "pxboost-sg-rds-${var.env}-${var.tlrs}"
   description = "Allow"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name            = "pxboost-sg-rds-${var.env}-${tlrs}"
+    Name            = "pxboost-sg-rds-${var.env}-${var.tlrs}"
     Environment     = var.env
     ApplicationID   = "pxboost-${var.tlrs}"
     ApplicationName = "pxboost"
@@ -66,6 +69,6 @@ resource "aws_security_group_rule" "egress_rds_vpc" {
   from_port         = 0
   to_port           = 0
   protocol          = -1
-  cidr_blocks       = [aws_vpc.main.cidr_block]
+  cidr_blocks       = [var.vpc_cidr]
   security_group_id = aws_security_group.rds.id
 }

@@ -4,6 +4,12 @@
 */
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name            = "${var.app_name}-rt-pub-${random_id.tlrs.hex}"
+    ApplicationID   = "${var.app_name}-${random_id.tlrs.hex}"
+    ApplicationName = var.app_name
+  }
 }
 
 resource "aws_route_table_association" "public" {
@@ -23,6 +29,12 @@ resource "aws_route" "public_route" {
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name            = "${var.app_name}-rt-private-${random_id.tlrs.hex}"
+    ApplicationID   = "${var.app_name}-${random_id.tlrs.hex}"
+    ApplicationName = var.app_name
+  }
 }
 
 resource "aws_route_table_association" "private_1" {

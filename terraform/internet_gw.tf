@@ -2,9 +2,8 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name            = "pxboost-igw-${var.env}-${random.tlrs.hex}"
-    Environment     = var.env
-    ApplicationID   = "pxboost-${random.tlrs.hex}"
-    ApplicationName = "pxboost"
+    Name            = "${var.app_name}-igw-${random_id.tlrs.hex}"
+    ApplicationID   = "${var.app_name}-${random_id.tlrs.hex}"
+    ApplicationName = var.app_name
   }
 }

@@ -18,23 +18,11 @@ variable "public_subnet_1_id" {
   type = string
 }
 
-variable "private_subnet_1_name" {
-  type = string
-}
-
-variable "private_subnet_2_name" {
-  type = string
-}
-
-variable "public_subnet_1_name" {
-  type = string
-}
-
 variable "app_name" {
   type = string
 }
 
-variable "environment" {
+variable "env" {
   type = string
 }
 
@@ -45,7 +33,7 @@ variable "tlrs" {
 
 variable "rds_config" {
   type = object({
-    allocated_storage = string
+    allocated_storage = number
     availability_zone = string
     instance_class    = string
     username          = string
@@ -58,7 +46,7 @@ variable "elastic_cache_config" {
   type = object({
     engine          = string
     node_type       = string
-    port            = string
+    port            = number
     num_cache_nodes = number
   })
 }
@@ -67,4 +55,8 @@ variable "bastian_config" {
   type = object({
     instance_type = string
   })
+}
+
+variable "zone" {
+  type = string
 }
